@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Iqra Website</title>
+</head>
+<body>
+    <h1>Welcome to Iqra</h1>
+    <p>This website is deployed using Git, Jenkins, and Apache.</p>
+</body>
+</html>
