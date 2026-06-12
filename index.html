@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galaxy To Solar System</title>
+<title>Snake Journey in Desert</title>
 
 <style>
 *{
@@ -14,188 +14,162 @@
 
 body{
     overflow:hidden;
-    background:#000;
     height:100vh;
-    perspective:1000px;
 }
 
-.space{
-    position:relative;
+/* Desert Background */
+.desert{
     width:100%;
     height:100vh;
-    transform-style:preserve-3d;
+    position:relative;
+    background:linear-gradient(to bottom,#87CEEB 0%,#87CEEB 40%,#e6c068 40%,#d9a441 100%);
 }
 
-/* Stars */
-.star{
-    position:absolute;
-    width:3px;
-    height:3px;
-    background:white;
-    border-radius:50%;
-    animation:zoom 15s linear infinite;
-}
-
-@keyframes zoom{
-    from{
-        transform:translateZ(-2000px);
-        opacity:0;
-    }
-    to{
-        transform:translateZ(1000px);
-        opacity:1;
-    }
-}
-
-/* Galaxy */
-.galaxy{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:500px;
-    height:500px;
-    margin-left:-250px;
-    margin-top:-250px;
-    border-radius:50%;
-    background:
-    radial-gradient(circle,
-    rgba(255,255,255,1) 0%,
-    rgba(180,180,255,0.8) 20%,
-    rgba(100,100,255,0.2) 50%,
-    transparent 80%);
-    animation:galaxyZoom 20s linear forwards;
-}
-
-@keyframes galaxyZoom{
-    0%{
-        transform:translateZ(-1500px) scale(0.2) rotate(0deg);
-    }
-    100%{
-        transform:translateZ(300px) scale(3) rotate(360deg);
-        opacity:0;
-    }
-}
-
-/* Solar System */
-.solar-system{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:600px;
-    height:600px;
-    transform:translate(-50%,-50%);
-    opacity:0;
-    animation:showSolar 20s forwards;
-}
-
-@keyframes showSolar{
-    0%,70%{
-        opacity:0;
-    }
-    100%{
-        opacity:1;
-    }
-}
-
+/* Sun */
 .sun{
-    position:absolute;
-    width:80px;
-    height:80px;
+    width:100px;
+    height:100px;
     background:gold;
     border-radius:50%;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    box-shadow:0 0 50px orange;
-}
-
-.orbit{
     position:absolute;
-    border:1px solid rgba(255,255,255,0.2);
-    border-radius:50%;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
+    top:50px;
+    right:100px;
+    box-shadow:0 0 50px yellow;
 }
 
-.earth-orbit{
-    width:250px;
-    height:250px;
-    animation:rotate 12s linear infinite;
-}
-
-.mars-orbit{
-    width:350px;
-    height:350px;
-    animation:rotate 18s linear infinite;
-}
-
-.planet{
+/* Sand Dunes */
+.dune{
     position:absolute;
+    bottom:0;
+    width:500px;
+    height:200px;
+    background:#c9902d;
     border-radius:50%;
 }
 
-.earth{
-    width:20px;
-    height:20px;
+.d1{left:-100px;}
+.d2{left:300px;}
+.d3{left:700px;}
+
+/* Oasis Destination */
+.oasis{
+    position:absolute;
+    right:120px;
+    bottom:150px;
+}
+
+.water{
+    width:120px;
+    height:60px;
     background:deepskyblue;
-    top:-10px;
-    left:50%;
+    border-radius:50%;
 }
 
-.mars{
-    width:16px;
-    height:16px;
-    background:orangered;
-    top:-8px;
-    left:50%;
+.tree{
+    width:20px;
+    height:80px;
+    background:brown;
+    position:absolute;
+    left:40px;
+    bottom:30px;
 }
 
-@keyframes rotate{
-    from{
-        transform:translate(-50%,-50%) rotate(0deg);
+.leaves{
+    width:70px;
+    height:70px;
+    background:green;
+    border-radius:50%;
+    position:absolute;
+    left:15px;
+    bottom:90px;
+}
+
+/* Snake */
+.snake{
+    position:absolute;
+    bottom:120px;
+    left:-200px;
+    width:180px;
+    height:25px;
+    animation:travel 15s linear infinite;
+}
+
+.segment{
+    width:25px;
+    height:25px;
+    background:green;
+    border-radius:50%;
+    position:absolute;
+}
+
+.segment:nth-child(1){left:0;}
+.segment:nth-child(2){left:20px;}
+.segment:nth-child(3){left:40px;}
+.segment:nth-child(4){left:60px;}
+.segment:nth-child(5){left:80px;}
+.segment:nth-child(6){left:100px;}
+.segment:nth-child(7){left:120px;}
+.segment:nth-child(8){left:140px;}
+
+.eye{
+    width:4px;
+    height:4px;
+    background:black;
+    border-radius:50%;
+    position:absolute;
+    top:7px;
+    left:8px;
+}
+
+@keyframes travel{
+    0%{
+        left:-200px;
+        transform:translateY(0px);
     }
-    to{
-        transform:translate(-50%,-50%) rotate(360deg);
+    25%{
+        transform:translateY(-10px);
+    }
+    50%{
+        transform:translateY(10px);
+    }
+    75%{
+        transform:translateY(-10px);
+    }
+    100%{
+        left:85%;
+        transform:translateY(0px);
     }
 }
 </style>
 </head>
-
 <body>
 
-<div class="space">
+<div class="desert">
 
-    <div class="galaxy"></div>
+    <div class="sun"></div>
 
-    <div class="solar-system">
-        <div class="sun"></div>
+    <div class="dune d1"></div>
+    <div class="dune d2"></div>
+    <div class="dune d3"></div>
 
-        <div class="orbit earth-orbit">
-            <div class="planet earth"></div>
-        </div>
+    <div class="oasis">
+        <div class="water"></div>
+        <div class="tree"></div>
+        <div class="leaves"></div>
+    </div>
 
-        <div class="orbit mars-orbit">
-            <div class="planet mars"></div>
-        </div>
+    <div class="snake">
+        <div class="segment"><div class="eye"></div></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
     </div>
 
 </div>
-
-<script>
-for(let i=0;i<300;i++){
-    let star=document.createElement('div');
-    star.className='star';
-
-    star.style.left=Math.random()*100+'vw';
-    star.style.top=Math.random()*100+'vh';
-
-    star.style.animationDuration=
-    (10+Math.random()*10)+'s';
-
-    document.querySelector('.space').appendChild(star);
-}
-</script>
 
 </body>
 </html>
