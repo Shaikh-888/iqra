@@ -1,33 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Website</title>
-
-  <!-- CSS file link -->
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<title>3D Black Hole Text Vortex</title>
+<style>
+body { margin:0; overflow:hidden; background:black; }
+canvas { display:block; }
+</style>
 </head>
-
 <body>
 
-  <header>
-    <h1>Welcome to IQRA</h1>
-  </header>
+<script type="module">
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js";
 
-  <section class="container">
-    <h2>About Us</h2>
-    <p>
-      This is a simple website created using HTML and CSS. 
-      It is used for learning DevOps and web deployment.
-    </p>
+const scene = new THREE.Scene();
 
-    <button>Click Me</button>
-  </section>
+const camera = new THREE.PerspectiveCamera(
+  60,
+  window.innerWidth/window.innerHeight,
+  0.1,
+  1000
+);
 
-  <footer>
-    <p>© 2026 My Simple Website</p>
-  </footer>
+camera.position.z = 80;
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Black Hole
+let holeRadius = 5;
+
+const hole = new THREE.Mesh(
+  new THREE.SphereGeometry(holeRadius,64,64),
+  new THREE.MeshBasicMaterial({color:0x000000})
+);
+
+scene.add(hole);
+
+// Glow ring
+const ring = new THREE.Mesh(
+  new THREE.TorusGeometry(8,1.5,32,200),
+  new THREE.MeshBasicMaterial({
+    color:0x66ccff
+  })
+);
+
+ring.rotation.x = Math.PI/2;
+scene.add(ring);
+
+// Text particles
+const words = [];
+
+const sampleText =
+"Knowledge drifts through space while the black hole consumes every word.";
+
+const list = sampleText.split(" ");
+
+function makeWordSprite(text){
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 256;
+  canvas.height = 64;
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "white";
+  ctx.font = "32px Arial";
+  ctx.fillText(text,10,40);
+
+  const texture = new THREE.CanvasTexture(canvas);
+
+  const material = new THREE.SpriteMaterial({
+      map:texture,
+      transparent:true
+  });
+
+  return new THREE.Sprite(material);
+}
+
+for(let i=0;i<500;i++){
+
+  const sprite =
+    makeWordSprite(list[i % list.length]);
+
+  const radius = 20 + Math.random()*80;
+  const angle = Math.random()*Math.PI*2;
+
+  sprite.userData.radius = radius;
+  sprite.userData.angle = angle;
+  sprite.userData.height =
+      (Math.random()-0.5)*30;
+
+  sprite.scale.set(6,1.5,1);
+
+  scene.add(sprite);
+  words.push(sprite);
+}
+
+function animate(){
+
+  requestAnimationFrame(animate);
+
+  ring.rotation.z += 0.01;
+
+  words.forEach(w=>{
+
+    w.userData.angle += 0.03;
+    w.userData.radius *= 0.998;
+
+    const r = w.userData.radius;
+    const a = w.userData.angle;
+
+    w.position.set(
+      Math.cos(a)*r,
+      w.userData.height,
+      Math.sin(a)*r
+    );
+
+    const scale = Math.max(0.2, r/40);
+    w.scale.set(scale*6, scale*1.5, 1);
+
+    if(r < holeRadius){
+
+      w.userData.radius = 80 + Math.random()*40;
+      w.userData.angle = Math.random()*Math.PI*2;
+
+      holeRadius += 0.002;
+
+      hole.scale.setScalar(holeRadius/5);
+    }
+  });
+
+  renderer.render(scene,camera);
+}
+
+animate();
+
+window.addEventListener("resize",()=>{
+
+  camera.aspect =
+    window.innerWidth/window.innerHeight;
+
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(
+    window.innerWidth,
+    window.innerHeight
+  );
+});
+</script>
 
 </body>
 </html>
