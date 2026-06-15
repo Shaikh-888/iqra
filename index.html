@@ -1,175 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Snake Journey in Desert</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IQRA IT ZONE</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    overflow:hidden;
-    height:100vh;
-}
-
-/* Desert Background */
-.desert{
-    width:100%;
-    height:100vh;
-    position:relative;
-    background:linear-gradient(to bottom,#87CEEB 0%,#87CEEB 40%,#e6c068 40%,#d9a441 100%);
-}
-
-/* Sun */
-.sun{
-    width:100px;
-    height:100px;
-    background:gold;
-    border-radius:50%;
-    position:absolute;
-    top:50px;
-    right:100px;
-    box-shadow:0 0 50px yellow;
-}
-
-/* Sand Dunes */
-.dune{
-    position:absolute;
-    bottom:0;
-    width:500px;
-    height:200px;
-    background:#c9902d;
-    border-radius:50%;
-}
-
-.d1{left:-100px;}
-.d2{left:300px;}
-.d3{left:700px;}
-
-/* Oasis Destination */
-.oasis{
-    position:absolute;
-    right:120px;
-    bottom:150px;
-}
-
-.water{
-    width:120px;
-    height:60px;
-    background:deepskyblue;
-    border-radius:50%;
-}
-
-.tree{
-    width:20px;
-    height:80px;
-    background:brown;
-    position:absolute;
-    left:40px;
-    bottom:30px;
-}
-
-.leaves{
-    width:70px;
-    height:70px;
-    background:green;
-    border-radius:50%;
-    position:absolute;
-    left:15px;
-    bottom:90px;
-}
-
-/* Snake */
-.snake{
-    position:absolute;
-    bottom:120px;
-    left:-200px;
-    width:180px;
-    height:25px;
-    animation:travel 15s linear infinite;
-}
-
-.segment{
-    width:25px;
-    height:25px;
-    background:green;
-    border-radius:50%;
-    position:absolute;
-}
-
-.segment:nth-child(1){left:0;}
-.segment:nth-child(2){left:20px;}
-.segment:nth-child(3){left:40px;}
-.segment:nth-child(4){left:60px;}
-.segment:nth-child(5){left:80px;}
-.segment:nth-child(6){left:100px;}
-.segment:nth-child(7){left:120px;}
-.segment:nth-child(8){left:140px;}
-
-.eye{
-    width:4px;
-    height:4px;
-    background:black;
-    border-radius:50%;
-    position:absolute;
-    top:7px;
-    left:8px;
-}
-
-@keyframes travel{
-    0%{
-        left:-200px;
-        transform:translateY(0px);
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
     }
-    25%{
-        transform:translateY(-10px);
+
+    body{
+      background:#f4f4f4;
+      color:#333;
     }
-    50%{
-        transform:translateY(10px);
+
+    header{
+      background:#0d6efd;
+      color:white;
+      text-align:center;
+      padding:25px;
     }
-    75%{
-        transform:translateY(-10px);
+
+    header h1{
+      font-size:40px;
     }
-    100%{
-        left:85%;
-        transform:translateY(0px);
+
+    header p{
+      margin-top:10px;
+      font-size:20px;
     }
-}
-</style>
+
+    /* Slider */
+    .slider{
+      width:90%;
+      height:400px;
+      margin:20px auto;
+      overflow:hidden;
+      border-radius:15px;
+      box-shadow:0 0 10px rgba(0,0,0,0.3);
+      position:relative;
+    }
+
+    .slides{
+      display:flex;
+      width:300%;
+      animation:slide 15s infinite;
+    }
+
+    .slides img{
+      width:100%;
+      height:400px;
+      object-fit:cover;
+    }
+
+    @keyframes slide{
+      0%{margin-left:0;}
+      25%{margin-left:0;}
+
+      35%{margin-left:-100%;}
+      60%{margin-left:-100%;}
+
+      70%{margin-left:-200%;}
+      100%{margin-left:-200%;}
+    }
+
+    .container{
+      width:90%;
+      margin:auto;
+    }
+
+    .box{
+      background:white;
+      padding:20px;
+      margin:20px 0;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2{
+      color:#0d6efd;
+      margin-bottom:15px;
+    }
+
+    ul li{
+      margin:10px 0;
+      font-size:18px;
+    }
+
+    form input{
+      width:100%;
+      padding:12px;
+      margin:10px 0;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    form button{
+      background:#0d6efd;
+      color:white;
+      padding:12px 20px;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+      font-size:16px;
+    }
+
+    form button:hover{
+      background:#084298;
+    }
+
+    footer{
+      background:#222;
+      color:white;
+      text-align:center;
+      padding:15px;
+      margin-top:20px;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="desert">
+  <header>
+    <h1>IQRA IT ZONE</h1>
+    <p>Admission Open - Join Today & Build Your IT Career</p>
+  </header>
 
-    <div class="sun"></div>
+  <!-- Image Slider -->
+  <div class="slider">
+    <div class="slides">
 
-    <div class="dune d1"></div>
-    <div class="dune d2"></div>
-    <div class="dune d3"></div>
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" alt="IT Training">
 
-    <div class="oasis">
-        <div class="water"></div>
-        <div class="tree"></div>
-        <div class="leaves"></div>
+      <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="Coding">
+
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Computer Lab">
+
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Courses -->
+    <div class="box">
+      <h2>Courses Available</h2>
+
+      <ul>
+        <li>Web Development</li>
+        <li>Python Programming</li>
+        <li>Linux Administration</li>
+        <li>AWS Cloud Computing</li>
+        <li>DevOps Training</li>
+        <li>Docker & Kubernetes</li>
+        <li>Jenkins CI/CD</li>
+      </ul>
     </div>
 
-    <div class="snake">
-        <div class="segment"><div class="eye"></div></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
+    <!-- Registration -->
+    <div class="box">
+      <h2>Student Registration</h2>
+
+      <form>
+        <input type="text" placeholder="Enter Full Name" required>
+
+        <input type="email" placeholder="Enter Email Address" required>
+
+        <input type="tel" placeholder="Enter Mobile Number" required>
+
+        <button type="submit">Register Now</button>
+      </form>
     </div>
 
-</div>
+    <!-- Fees -->
+    <div class="box">
+      <h2>Fee Structure</h2>
+      <p>Affordable fees available for all IT courses with practical training.</p>
+    </div>
+
+    <!-- Contact -->
+    <div class="box">
+      <h2>Contact Us</h2>
+
+      <p><strong>Phone:</strong> 777777777</p>
+
+      <p><strong>Email:</strong> iqraitzone@gmail.com</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2026 IQRA IT ZONE | All Rights Reserved</p>
+  </footer>
 
 </body>
 </html>
